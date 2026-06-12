@@ -1,6 +1,6 @@
-# [WIP] Deskriptions
+# Deskription
 
-## Supported resources
+## Definitions
 
 * **Kubernetes** ([Docs](https://kubernetes.io/docs/))
   * core
