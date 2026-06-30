@@ -1,48 +1,49 @@
 apiVersion: deskription.io/v1alpha1
 kind: Resource
 metadata:
-  name: knative-serving-v1beta1-revision
+  name: shipwright-core-v1beta1-build
 spec:
   selector:
-    apiGroup: serving.knative.dev
+    apiGroup: shipwright.io
     apiVersion: v1beta1
-    kind: Revision
-  type: Workload
+    kind: Build
+  type: CICD
 ---
 apiVersion: deskription.io/v1alpha1
 kind: ResourceTable
 metadata:
-  name: knative-serving-v1beta1-revision
+  name: shipwright-core-v1beta1-build
 spec:
   selector:
-    apiGroup: serving.knative.dev
+    apiGroup: shipwright.io
     apiVersion: v1beta1
-    kind: Revision
+    kind: Build
   columns:
     - name: Namespace
       path: metadata.namespace
     - name: Name
       path: metadata.name
+    - name: Output
     - name: Created
-      type: DateTime
+      type: datetime
       path: metadata.creationTimestamp
 ---
 apiVersion: deskription.io/v1alpha1
 kind: ResourceDetails
 metadata:
-  name: knative-serving-v1beta1-revision
+  name: shipwright-core-v1beta1-build
 spec:
   selector:
-    apiGroup: serving.knative.dev
+    apiGroup: shipwright.io
     apiVersion: v1beta1
-    kind: Revision
+    kind: Build
   fields:
     - name: Namespace
       path: metadata.namespace
     - name: Name
       path: metadata.name
     - name: Labels
-    - name: Namespace
       path: metadata.labels
     - name: Annotations
       path: metadata.annotations
+    - name: Output

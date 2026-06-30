@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deskription.io/schema/v1alpha1/resource.schema.json",
+  "title": "Resource",
+  "description": "Classifies a Kubernetes resource kind for UIs: which kind is meant (selector) and which category it belongs to (type).",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "const": "deskription.io/v1alpha1"
+    },
+    "kind": {
+      "const": "Resource"
+    },
+    "metadata": {
+      "$ref": "#/definitions/metadata"
+    },
+    "spec": {
+      "type": "object",
+      "required": ["selector", "type"],
+      "additionalProperties": false,
+      "properties": {
+        "selector": {
+          "$ref": "#/definitions/selector"
+        },
+        "type": {
+          "type": "string",
+          "description": "Category of the selected resource kind. Open enum: any string is allowed so new categories do not require a spec change.",
+          "examples": [
+            "Workload",
+            "Storage",
+            "Data",
+            "RBAC",
+            "CICD",
+            "Compute",
+            "Network",
+            "Operators"
+          ]
+        }
+      }
+    }
+  },
+  "definitions": {
+    "metadata": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Unique name of this definition. Convention: <distribution>-<group>-<version>-<kind>, all lowercase.",
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+        }
+      }
+    },
+    "selector": {
+      "type": "object",
+      "description": "Selects the Kubernetes resource kind this definition applies to. All fields are matched exactly in v1alpha1.",
+      "required": ["apiGroup", "apiVersion", "kind"],
+      "additionalProperties": false,
+      "properties": {
+        "apiGroup": {
+          "type": "string",
+          "description": "API group of the target resource, e.g. 'apps' or 'tekton.dev'. The literal 'core' and the empty string are equivalent and select the Kubernetes core group."
+        },
+        "apiVersion": {
+          "type": "string",
+          "description": "API version of the target resource, e.g. 'v1' or 'v1beta1'."
+        },
+        "kind": {
+          "type": "string",
+          "description": "Kind of the target resource, e.g. 'Deployment'."
+        }
+      }
+    }
+  }
+}

@@ -23,7 +23,7 @@ spec:
     - name: Type
     - name: Size
     - name: Created
-      type: DateTime
+      type: datetime
       path: metadata.creationTimestamp
 ---
 apiVersion: deskription.io/v1alpha1

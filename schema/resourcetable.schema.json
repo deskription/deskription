@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deskription.io/schema/v1alpha1/resourcetable.schema.json",
+  "title": "ResourceTable",
+  "description": "Defines the columns a UI should render when listing resources of the selected kind.",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "const": "deskription.io/v1alpha1"
+    },
+    "kind": {
+      "const": "ResourceTable"
+    },
+    "metadata": {
+      "$ref": "#/definitions/metadata"
+    },
+    "spec": {
+      "type": "object",
+      "required": ["selector", "columns"],
+      "additionalProperties": false,
+      "properties": {
+        "selector": {
+          "$ref": "#/definitions/selector"
+        },
+        "columns": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/column"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "metadata": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Unique name of this definition. Convention: <distribution>-<group>-<version>-<kind>, all lowercase.",
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+        }
+      }
+    },
+    "selector": {
+      "type": "object",
+      "description": "Selects the Kubernetes resource kind this definition applies to. All fields are matched exactly in v1alpha1.",
+      "required": ["apiGroup", "apiVersion", "kind"],
+      "additionalProperties": false,
+      "properties": {
+        "apiGroup": {
+          "type": "string",
+          "description": "API group of the target resource, e.g. 'apps' or 'tekton.dev'. The literal 'core' and the empty string are equivalent and select the Kubernetes core group."
+        },
+        "apiVersion": {
+          "type": "string",
+          "description": "API version of the target resource, e.g. 'v1' or 'v1beta1'."
+        },
+        "kind": {
+          "type": "string",
+          "description": "Kind of the target resource, e.g. 'Deployment'."
+        }
+      }
+    },
+    "column": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Column header shown to the user. Columns are merged across definitions by this name. Some names without a path are well known to renderers (Name, Namespace, Labels, Annotations, Created, Owner, Status)."
+        },
+        "path": {
+          "type": "string",
+          "description": "JSONPath into the rendered resource that provides the value, e.g. 'metadata.name' or 'status.containerStatuses.*.restartCount'. The leading '$.' is optional."
+        },
+        "type": {
+          "type": "string",
+          "description": "How the value is rendered. Defaults to 'string'.",
+          "enum": [
+            "string",
+            "status",
+            "conditions",
+            "sum",
+            "owners",
+            "memory",
+            "cpu",
+            "datetime"
+          ]
+        },
+        "width": {
+          "type": "string",
+          "description": "Rendering hint for the column width. Defaults to 'default'.",
+          "enum": ["short", "default", "wide"]
+        }
+      }
+    }
+  }
+}

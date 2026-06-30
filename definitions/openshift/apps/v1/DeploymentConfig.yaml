@@ -28,32 +28,38 @@ spec:
       width: short
       type: conditions
     - name: Restarts
-      type: Sum
+      type: sum
       width: short
       path: status.containerStatuses.*.restartCount
     - name: Owner
-      type: Owners
+      type: owners
       path: metadata.ownerReferences
     - name: Memory
-      type: Memory
+      type: memory
       width: short
     - name: CPU
-      type: CPU
+      type: cpu
       width: short
     - name: Created
-      type: DateTime
+      type: datetime
       path: metadata.creationTimestamp
 ---
 apiVersion: deskription.io/v1alpha1
 kind: ResourceDetails
 metadata:
   name: openshift-apps-v1-deploymentconfig
-kind: Resource
-metadata:
-  name: knative-serving-v1-revision
 spec:
   selector:
     apiGroup: apps.openshift.io
     apiVersion: v1
     kind: DeploymentConfig
-  type: Workload
+  fields:
+    - name: Name
+    - name: Namespace
+    - name: Labels
+      path: metadata.labels
+    - name: Annotations
+      path: metadata.annotations
+    - name: Created at
+    - name: Owner
+    - name: Status

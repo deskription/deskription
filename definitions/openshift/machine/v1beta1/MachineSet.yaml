@@ -1,0 +1,47 @@
+apiVersion: deskription.io/v1alpha1
+kind: Resource
+metadata:
+  name: openshift-machine-v1beta1-machineset
+spec:
+  selector:
+    apiGroup: machine.openshift.io
+    apiVersion: v1beta1
+    kind: MachineSet
+  type: Compute
+---
+apiVersion: deskription.io/v1alpha1
+kind: ResourceTable
+metadata:
+  name: openshift-machine-v1beta1-machineset
+spec:
+  selector:
+    apiGroup: machine.openshift.io
+    apiVersion: v1beta1
+    kind: MachineSet
+  columns:
+    - name: Namespace
+      path: metadata.namespace
+    - name: Name
+      path: metadata.name
+    - name: Created
+      type: datetime
+      path: metadata.creationTimestamp
+---
+apiVersion: deskription.io/v1alpha1
+kind: ResourceDetails
+metadata:
+  name: openshift-machine-v1beta1-machineset
+spec:
+  selector:
+    apiGroup: machine.openshift.io
+    apiVersion: v1beta1
+    kind: MachineSet
+  fields:
+    - name: Namespace
+      path: metadata.namespace
+    - name: Name
+      path: metadata.name
+    - name: Labels
+      path: metadata.labels
+    - name: Annotations
+      path: metadata.annotations

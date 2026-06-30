@@ -29,7 +29,7 @@ spec:
     - name: Availability
     - name: Endpoint
     - name: Created
-      type: DateTime
+      type: datetime
       path: metadata.creationTimestamp
 ---
 apiVersion: deskription.io/v1alpha1
@@ -52,7 +52,6 @@ spec:
     - name: Availability
     - name: Endpoint
     - name: Labels
-    - name: Namespace
       path: metadata.labels
     - name: Annotations
       path: metadata.annotations

@@ -43,7 +43,6 @@ spec:
     - name: Name
       path: metadata.name
     - name: Labels
-    - name: Namespace
       path: metadata.labels
     - name: Annotations
       path: metadata.annotations

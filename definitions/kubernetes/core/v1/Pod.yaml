@@ -6,7 +6,7 @@ spec:
   selector:
     apiGroup: core
     apiVersion: v1
-    kind: ConfigMap
+    kind: Pod
   type: Workload
 ---
 apiVersion: deskription.io/v1alpha1
@@ -17,7 +17,7 @@ spec:
   selector:
     apiGroup: core
     apiVersion: v1
-    kind: ConfigMap
+    kind: Pod
   columns:
     - name: Name
       path: metadata.name
@@ -28,20 +28,20 @@ spec:
       width: short
       type: conditions
     - name: Restarts
-      type: Sum
+      type: sum
       width: short
       path: status.containerStatuses.*.restartCount
     - name: Owner
-      type: Owners
+      type: owners
       path: metadata.ownerReferences
     - name: Memory
-      type: Memory
+      type: memory
       width: short
     - name: CPU
-      type: CPU
+      type: cpu
       width: short
     - name: Created
-      type: DateTime
+      type: datetime
       path: metadata.creationTimestamp
 ---
 apiVersion: deskription.io/v1alpha1
@@ -52,7 +52,7 @@ spec:
   selector:
     apiGroup: core
     apiVersion: v1
-    kind: ConfigMap
+    kind: Pod
   fields:
     - name: Name
     - name: Namespace
@@ -71,7 +71,7 @@ spec:
     - name: Image pull secret
     - name: PodDisruptionBudget
     - name: Containers
-      type: Table
+      type: table
       table:
         columns:
           - name: Name

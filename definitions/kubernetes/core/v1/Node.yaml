@@ -7,7 +7,7 @@ spec:
     apiGroup: core
     apiVersion: v1
     kind: Node
-  type: Workload
+  type: Compute
 ---
 apiVersion: deskription.io/v1alpha1
 kind: ResourceTable
@@ -24,7 +24,7 @@ spec:
     - name: Name
       path: metadata.name
     - name: Created
-      type: DateTime
+      type: datetime
       path: metadata.creationTimestamp
 ---
 apiVersion: deskription.io/v1alpha1
@@ -42,7 +42,6 @@ spec:
     - name: Name
       path: metadata.name
     - name: Labels
-    - name: Namespace
       path: metadata.labels
     - name: Annotations
       path: metadata.annotations
